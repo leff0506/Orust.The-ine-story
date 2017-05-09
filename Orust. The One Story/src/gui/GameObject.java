@@ -2,6 +2,8 @@ package gui;
 
 import java.awt.Image;
 
+import gameObjects.Player;
+
 public abstract class GameObject {
 	protected Image image;
 	protected int x;
@@ -9,6 +11,7 @@ public abstract class GameObject {
 	protected int height;
 	protected int width;
 	protected GamePlay gamePlay;
+	protected Player player;
 	public void setImage(Image img){
 		this.image=img;
 	}
