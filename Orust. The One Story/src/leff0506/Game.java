@@ -2,6 +2,7 @@ package leff0506;
 
 import java.awt.Toolkit;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import gameObjects.GLobalMap;
 import gui.GUI;
@@ -33,7 +34,10 @@ public class Game {
 			@Override
 			public void run() {
 				while(true){
+					
+//					initGameObjects();
 					render();
+//					deleteGameObjects();
 					try {
 						Thread.sleep(1000/60);
 					} catch (InterruptedException e) {
@@ -62,6 +66,12 @@ public class Game {
 		dataObj.add(new GLobalMap(0,0,MAP_WIDTH,MAP_HEIGHT,gameViewer));
 		
 
+	}
+	private void deleteGameObjects(){
+		int pointer =dataObj.size()-1; 
+		for(int i = pointer ;i>0;i--){
+			dataObj.remove(i);
+		}
 	}
 
 }

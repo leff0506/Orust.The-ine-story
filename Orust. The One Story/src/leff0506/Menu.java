@@ -13,8 +13,6 @@ import javax.swing.JLabel;
 
 import gui.Developers;
 import imageWork.GifPanel;
-import javazoom.jl.decoder.JavaLayerException;
-import javazoom.jl.player.Player;
 
 public class Menu extends JFrame {
 	private JLabel startGame;
@@ -25,7 +23,7 @@ public class Menu extends JFrame {
 	private Font font;
 	private Color cl;
 	private GifPanel panel;
-	private Player player;
+
 	private final int MAX_HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().height-60; 
 	private final int MAX_WIDTH = Toolkit.getDefaultToolkit().getScreenSize().width;
 	public Menu()  {
@@ -226,27 +224,6 @@ public class Menu extends JFrame {
 	   //add components to JFrame 
 		add(panel);
 		setVisible(true);
-		
-			Thread sound = new Thread(new Runnable(){
-				@Override
-				public void run(){
-					try {
-						FileInputStream f= new FileInputStream("Media/Audio/tempAudio.mp3");
-						player = new Player(f);
-						player.play();
-						} catch (FileNotFoundException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						} catch (JavaLayerException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						}
-					}
-			});
-//			sound.start();
-			
-			
-		
 		
 	}
 

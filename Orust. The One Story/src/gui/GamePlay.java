@@ -21,7 +21,7 @@ public class GamePlay extends JPanel {
 	private int imgY;
 	private int imgWidth;
 	private int imgHeight;
-	private ArrayList<GameObject> data = new  ArrayList<GameObject>();
+	public static ArrayList<GameObject> data = new  ArrayList<GameObject>();
 	
 	public GamePlay(int x,int y,int xMax,int yMax,ArrayList<GameObject> data) {
 		super();
