@@ -8,7 +8,7 @@ import leff0506.Game;
 public class InputHendler implements KeyListener{
 	private static boolean[] keys;
 	public InputHendler() {
-		keys = new boolean[100];
+		keys = new boolean[200];
 	}
 	public static boolean isKeyDown(int key){
 		return keys[key];

@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
+import gameObjects.GameObject;
 import gameObjects.Player;
 import leff0506.Game;
 
@@ -52,7 +53,7 @@ public class GamePlay extends JPanel {
 			
 	}
 
-	public void render(ArrayList<GameObject> data,Graphics g){
+	public void render(ArrayList<GameObject> data){
 		this.data=data;
 		this.repaint();
 

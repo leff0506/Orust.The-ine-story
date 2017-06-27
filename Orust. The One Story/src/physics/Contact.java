@@ -3,8 +3,8 @@ package physics;
 import java.awt.Rectangle;
 import java.util.ArrayList;
 
+import gameObjects.GameObject;
 import gameObjects.Player;
-import gui.GameObject;
 import leff0506.Game;
 
 public class Contact {

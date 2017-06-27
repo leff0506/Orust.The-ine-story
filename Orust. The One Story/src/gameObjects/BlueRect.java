@@ -5,7 +5,6 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-import gui.GameObject;
 import gui.GamePlay;
 
 public class BlueRect extends GameObject{

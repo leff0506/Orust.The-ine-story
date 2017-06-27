@@ -1,16 +1,13 @@
 package gui;
 
-import java.awt.Color;
+import java.awt.Cursor;
+import java.awt.Image;
+import java.awt.Point;
 import java.awt.Toolkit;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
-import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -105,6 +102,12 @@ public class GUI extends JFrame{
 		add(delimiter);
 		add(Game.gameViewer);
 		addKeyListener(new InputHendler());
+		
+		Toolkit toolkit = Toolkit.getDefaultToolkit();  
+		Image image = toolkit.getImage("Media/Interface/aim.png");  
+		Cursor cursor = toolkit.createCustomCursor(image, new Point(0,0), "Pencil");  
+		setCursor(cursor);  
+		
 		super.setVisible(true);
 	}
 

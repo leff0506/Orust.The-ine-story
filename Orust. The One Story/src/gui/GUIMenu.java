@@ -11,10 +11,12 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import leff0506.Game;
+import leff0506.Menu;
 
 public class GUIMenu extends JPanel {
 	private int gold = 0;
@@ -32,10 +34,11 @@ public class GUIMenu extends JPanel {
 	private JLabel hero;
 	private JLabel map;
 	private Image crystal;
-
+	private JFrame menu;
 	// private Gold goldPanel;
-	public GUIMenu() {
+	public GUIMenu(JFrame menu ,JFrame gui) {
 		super();
+		this.menu = menu;
 		setBounds(Game.MAP_X, Game.MAP_Y - 30, Game.MAP_WIDTH, Game.MAP_Y - 8);
 		setBackground(new Color(163, 93, 0));
 		Font font = new Font("Arial", Font.ITALIC, 17);
@@ -71,7 +74,8 @@ public class GUIMenu extends JPanel {
 			@Override
 			public void mousePressed(MouseEvent e) {
 				// TODO Auto-generated method stub
-
+				
+				
 			}
 
 			@Override
@@ -89,7 +93,7 @@ public class GUIMenu extends JPanel {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				// TODO Auto-generated method stub
-
+				System.exit(0);
 			}
 		});
 		// create mainMenuLabel
@@ -130,7 +134,8 @@ public class GUIMenu extends JPanel {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				// TODO Auto-generated method stub
-
+				menu.setVisible(true);
+				gui.dispose();
 			}
 		});
 		// create uploadLabel

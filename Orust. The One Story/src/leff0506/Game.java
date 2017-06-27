@@ -1,18 +1,16 @@
 package leff0506;
 
-import java.awt.Graphics;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
-import java.awt.image.BufferStrategy;
 import java.util.ArrayList;
-import java.util.Random;
 
-import gameObjects.BlueRect;
-import gameObjects.GLobalMap;
+import javax.swing.JFrame;
+
+import gameObjects.GameObject;
+import gameObjects.GlobalMap;
 import gameObjects.Player;
 import gui.GUI;
 import gui.GUIMenu;
-import gui.GameObject;
 import gui.GamePlay;
 import gui.InputHendler;
 
@@ -24,6 +22,7 @@ public class Game {
 	public static final int Y = 60;
 	private Player player;
 	private GUIMenu guiMenu;
+	private GlobalMap globalMap;
 	public static GamePlay gameViewer;
 	public static final int MAP_HEIGHT = HEIGHT-160;
 	public static int MAP_X = X;
@@ -32,35 +31,46 @@ public class Game {
 	public static boolean running =true;
 	public static boolean renderingGlobalMap = true;
 	public GUI gui;
-	public Game() {
-		initGameObjects();
-		player = new Player(0,0,20,20);
-		initGamePlay();
-		gui=new GUI();
-		gui.add(new GUIMenu());
+	public Game(JFrame frame) {
 		
-		Thread thread = new Thread(new Runnable(){
+		player = new Player(700,300,20,20);
+		initGamePlay();
+		initGameObjects();
+		gui=new GUI();
+		gui.add(new GUIMenu(frame,gui));
+		
+		Thread thread = new Thread(()->{
 
-			@Override
-			public void run() {
-				long jvmLastTime = System.nanoTime();
+			
+			
+				long jvmLastTimeUpdate = System.nanoTime();
+				long jvmLastTimeRender = System.nanoTime();
 				long timer = System.currentTimeMillis();
-				double jvmPartTime =1_000_000_000.0/60.0;
-				double delta =0;
+				double jvmPartTimeUpdate =1_000_000_000.0/60.0;
+				double jvmPartTimeRender =1_000_000_000.0/120.0;
+				double deltaUpdate =0;
+				double deltaRender =0;
 				int updates=0;
 				int frames=0;
 				while(running){
 					long jvmNow = System.nanoTime();
-					delta += (jvmNow - jvmLastTime);
-					jvmLastTime=jvmNow;
-					if(delta>= jvmPartTime){
+					deltaUpdate += (jvmNow - jvmLastTimeUpdate);
+					jvmLastTimeUpdate=jvmNow;
+					deltaRender +=(jvmNow - jvmLastTimeRender);
+					jvmLastTimeRender=jvmNow;
+					if(deltaUpdate>= jvmPartTimeUpdate){
 						update();
-						delta=0;
+						deltaUpdate=0;
 						updates++;
+						
+					}
+					if(deltaRender>= jvmPartTimeRender){	
+						deltaRender=0;
+						render();
+						frames++;
 					}
 					
-					render();
-					frames++;
+					
 					if(System.currentTimeMillis()-timer>1000){
 						gui.setTitle("Orust.The one story  frames : "+frames + "updates : "+updates);
 						timer+=1000;
@@ -68,9 +78,6 @@ public class Game {
 						frames = 0;
 					}
 				}
-				
-				
-			}
 		});
 				
 		thread.start();
@@ -79,30 +86,26 @@ public class Game {
 		
 	}
 	private void update(){
-		if(InputHendler.isKeyDown(KeyEvent.VK_W))player.moveUp(-1*player.speed);
+		if(InputHendler.isKeyDown(KeyEvent.VK_W))player.moveUp();
 		if(InputHendler.isKeyDown(KeyEvent.VK_D))player.moveRight();
 		if(InputHendler.isKeyDown(KeyEvent.VK_A))player.moveLeft();
 		if(InputHendler.isKeyDown(KeyEvent.VK_S))player.moveDown();
-		
+		if(InputHendler.isKeyDown(KeyEvent.VK_UP)&&renderingGlobalMap)globalMap.moveUp();
+		if(InputHendler.isKeyDown(KeyEvent.VK_DOWN)&&renderingGlobalMap)globalMap.moveDown();
 	}
 	private void render(){
-		BufferStrategy bs = gui.getBufferStrategy();
-		if(bs==null){
-			gui.createBufferStrategy(3);
-			return;
-		}
-		Graphics g = bs.getDrawGraphics();
-		gameViewer.render(dataObj,g);
+		gameViewer.render(dataObj);
 	}
 	private void initGamePlay(){
 		gameViewer = new GamePlay(MAP_X, MAP_Y, MAP_WIDTH,MAP_HEIGHT, dataObj,player);
 	}
 	private void initGameObjects() {
-		dataObj.add(new GLobalMap(0,0,MAP_WIDTH,MAP_HEIGHT,gameViewer));
-		Random rd = new Random();
-		for(int i = 0 ; i < 50;i++){
-			dataObj.add(new BlueRect(rd.nextInt(MAP_WIDTH),rd.nextInt(MAP_HEIGHT),20,20,gameViewer,player));
-		}
+		globalMap = new GlobalMap(0,0,MAP_WIDTH,MAP_HEIGHT+300,gameViewer,player);
+		dataObj.add(globalMap);
+//		Random rd = new Random();
+//		for(int i = 0 ; i < 50;i++){
+//			dataObj.add(new BlueRect(rd.nextInt(MAP_WIDTH),rd.nextInt(MAP_HEIGHT),20,20,gameViewer,player));
+//		}
 		
 
 	}

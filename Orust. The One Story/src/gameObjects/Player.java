@@ -7,17 +7,21 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-import gui.GameObject;
 import gui.GamePlay;
 import leff0506.Game;
 import physics.Contact;
 
 public class Player extends GameObject{
 	public  int speed = 5;
-	public int x;
-	public int y ;
-	public int height;
-	public int width;
+	public static final int MAP_STATE_1 = 1 ;
+	public static final int MAP_STATE_2 = 2 ;
+	public static final int MAP_STATE_3 = 3 ;
+	public static final int MAP_STATE_4 = 4 ;
+	public static final int MAP_STATE_5 = 5 ;
+	public static final int MAP_STATE_6 = 6 ;
+	public static final int MAP_STATE_7 = 7 ;
+	public static final int MAP_STATE_8 = 8 ;
+	
 	public Player(int x,int y,int width,int height) {
 		try {
 			setImage(ImageIO.read(new File ("Media/Game objects/player.png")));
@@ -34,18 +38,18 @@ public class Player extends GameObject{
 
 	
 
-	public void moveUp(int up){
+	public void moveUp(){
 		if(this.y-speed<=0){
 			this.y=0;
 			return;
 		}
-		if(!Contact.isPlayerContactWithSmth(this,0, up)){
+		if(!Contact.isPlayerContactWithSmth(this,0, -1*speed)){
 			this.y+=-1*speed;
 		}else{
 			this.y=Game.getData().get(Contact.withWhat).getY()+Game.getData().get(Contact.withWhat).getHeight();
 		}
 		
-		
+//		
 	}
 	public void moveDown(){
 		if(this.y+height+speed>=GamePlay.yMax){
@@ -84,24 +88,6 @@ public class Player extends GameObject{
 		}
 		
 	}
-	
-	public int getX(){
-		return x;
-	}
-	public  int getY(){
-		return y;
-	}
-	public  int getWidth(){
-		return width;
-	}
-	public  int getHeight(){
-		return height;
-	}
-	public void setX(int x1){
-		x=x1;
-	}
-	public void setY(int y1){
-		y=y1;
-	}
+
 
 }

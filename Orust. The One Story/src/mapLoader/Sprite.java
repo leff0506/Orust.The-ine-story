@@ -6,7 +6,7 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-import gui.GameObject;
+import gameObjects.GameObject;
 import gui.GamePlay;
 
 public class Sprite extends GameObject{

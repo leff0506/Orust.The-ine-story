@@ -1,12 +1,16 @@
 package leff0506;
 
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Font;
+import java.awt.Image;
+import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -23,6 +27,7 @@ public class Menu extends JFrame {
 	private Font font;
 	private Color cl;
 	private GifPanel panel;
+	private static Menu menu;
 
 	private final int MAX_HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().height-60; 
 	private final int MAX_WIDTH = Toolkit.getDefaultToolkit().getScreenSize().width;
@@ -82,8 +87,9 @@ public class Menu extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 //				player.close();
-				new Game();
-				dispose();
+				new Game(menu);
+				startGame.setEnabled(false);
+				setVisible(false);
 				
 			}
 		});	
@@ -223,6 +229,12 @@ public class Menu extends JFrame {
 		panel.add(exit);		
 	   //add components to JFrame 
 		add(panel);
+		
+		Toolkit toolkit = Toolkit.getDefaultToolkit();  
+		Image image = toolkit.getImage("Media/Interface/aim.png");  
+		Cursor cursor = toolkit.createCustomCursor(image, new Point(0,0), "Pencil");  
+		setCursor(cursor);  
+		menu = this;
 		setVisible(true);
 		
 	}

@@ -6,6 +6,8 @@ import java.util.Random;
 
 import javax.swing.JPanel;
 
+import gameObjects.GameObject;
+
 public class ObjectPanel extends JPanel{
 	private final int width;
 	private final int height;
