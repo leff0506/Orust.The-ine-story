@@ -23,24 +23,21 @@ public class GamePlay extends JPanel {
 	private int imgHeight;
 	public static ArrayList<GameObject> data = new  ArrayList<GameObject>();
 	
-	public GamePlay(int x,int y,int xMax,int yMax,ArrayList<GameObject> data) {
+	public GamePlay(int x,int y,int xMax,int yMax,ArrayList<GameObject> data,Player player) {
 		super();
 		this.x=x;
 		this.y=y;
 		this.xMax=xMax;
 		this.yMax=yMax;
 		this.data=data;
+		this.player = player;
 		setLayout(null);
 		setBounds(x,y,xMax,yMax);
 		
-		
-		
-		player = new Player(0,0,20,20);
-//		
-		System.out.println(x);
-		System.out.println(y);
-		System.out.println(xMax);
-		System.out.println(yMax);
+//		System.out.println(x);
+//		System.out.println(y);
+//		System.out.println(xMax);
+//		System.out.println(yMax);
 	}
 	
 	public void paint(Graphics g){
@@ -55,38 +52,10 @@ public class GamePlay extends JPanel {
 			
 	}
 
-	public void render(ArrayList<GameObject> data){
+	public void render(ArrayList<GameObject> data,Graphics g){
 		this.data=data;
 		this.repaint();
 
-		
-	}
-	
-	public void keyPressed(KeyEvent e) {
-		if(e.getKeyCode()==KeyEvent.VK_W||e.getKeyCode()==KeyEvent.VK_UP){
-			player.moveUp();
-		}
-		if(e.getKeyCode()==KeyEvent.VK_S||e.getKeyCode()==KeyEvent.VK_DOWN){
-			player.moveDown();
-		}
-		if(e.getKeyCode()==KeyEvent.VK_A||e.getKeyCode()==KeyEvent.VK_LEFT){
-			player.moveLeft();
-		}
-		if(e.getKeyCode()==KeyEvent.VK_D||e.getKeyCode()==KeyEvent.VK_RIGHT){
-			player.moveRight();
-		}
-		if(e.getKeyCode()==KeyEvent.VK_Q){
-			player.moveUpLeft();
-		}
-		if(e.getKeyCode()==KeyEvent.VK_E){
-			player.moveUpRight();;
-		}
-		if(e.getKeyCode()==KeyEvent.VK_Z){
-			player.moveDownLeft();
-		}
-		if(e.getKeyCode()==KeyEvent.VK_C){
-			player.moveDownRight();
-		}
 		
 	}
 	

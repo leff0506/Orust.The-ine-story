@@ -18,7 +18,7 @@ import imageWork.HeroPanel;
 import imageWork.ImagePanel;
 import leff0506.Game;
 
-public class GUI extends JFrame implements KeyListener{
+public class GUI extends JFrame{
 	private JPanel menu;
 	private ImagePanel rollInMenu;
 	private ImagePanel hourGlassInMenu;
@@ -104,23 +104,8 @@ public class GUI extends JFrame implements KeyListener{
 		add(downDragon);
 		add(delimiter);
 		add(Game.gameViewer);
-		addKeyListener(this);
+		addKeyListener(new InputHendler());
 		super.setVisible(true);
 	}
-	@Override
-	public void keyPressed(KeyEvent e) {
-		Game.gameViewer.keyPressed(e);
-		
-	}
-	@Override
-	public void keyReleased(KeyEvent e) {
-		
-		
-	}
-	@Override
-	public void keyTyped(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-	
+
 }

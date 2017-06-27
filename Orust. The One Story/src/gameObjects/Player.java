@@ -9,9 +9,11 @@ import javax.imageio.ImageIO;
 
 import gui.GameObject;
 import gui.GamePlay;
+import leff0506.Game;
+import physics.Contact;
 
 public class Player extends GameObject{
-	private static int speed = 4;
+	public  int speed = 5;
 	public int x;
 	public int y ;
 	public int height;
@@ -27,62 +29,63 @@ public class Player extends GameObject{
 		this.y=y;
 		this.width=width;
 		this.height=height;
-		
+		player=this;
 	}
 
 	
-	public  void move(int x,int y){
-	
-		
-		
-		this.x+=x*speed;
-		this.y+=y*speed;
-	}
-	public void moveUp(){
+
+	public void moveUp(int up){
 		if(this.y-speed<=0){
 			this.y=0;
 			return;
 		}
-		move(0,-1);
+		if(!Contact.isPlayerContactWithSmth(this,0, up)){
+			this.y+=-1*speed;
+		}else{
+			this.y=Game.getData().get(Contact.withWhat).getY()+Game.getData().get(Contact.withWhat).getHeight();
+		}
+		
+		
 	}
 	public void moveDown(){
 		if(this.y+height+speed>=GamePlay.yMax){
 			this.y=GamePlay.yMax-height;
 			return;
 		}
-		move(0,1);
+		if(!Contact.isPlayerContactWithSmth(this,0, 1*speed)){
+			this.y+=1*speed;
+		}else{
+			this.y=Game.getData().get(Contact.withWhat).getY()-player.getHeight();
+		}
+		
+		
 	}
 	public void moveLeft(){
 		if(this.x-speed<=0){
 			this.x=0;
 			return;
 		}
-		move(-1,0);
+		if(!Contact.isPlayerContactWithSmth(this,-1*speed,0)){
+			this.x+=-1*speed;
+		}else{
+			this.x=Game.getData().get(Contact.withWhat).getX()+Game.getData().get(Contact.withWhat).getWidth();
+		}
+		
 	}
 	public void moveRight(){
 		if(this.x+width+speed>=GamePlay.xMax){
 			this.x=GamePlay.xMax-width;
 			return;
 		}
-		move(1,0);
+		if(!Contact.isPlayerContactWithSmth(this,1*speed,0)){
+			this.x+=1*speed;
+		}else{
+			this.x=Game.getData().get(Contact.withWhat).getX()-player.getWidth();
+		}
+		
 	}
-	public void moveUpLeft(){
-		moveLeft();
-		moveUp();
-	}
-	public void moveUpRight(){
-		moveUp();
-		moveRight();
-	}
-	public void moveDownLeft(){
-		moveLeft();
-		moveDown();
-	}
-	public void moveDownRight(){
-		moveRight();
-		moveDown();
-	}	
-	public  int getX(){
+	
+	public int getX(){
 		return x;
 	}
 	public  int getY(){
