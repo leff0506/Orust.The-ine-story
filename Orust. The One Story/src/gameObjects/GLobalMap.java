@@ -6,12 +6,13 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-import gui.GameObject;
 import gui.GamePlay;
+import leff0506.Game;
 
-public class GLobalMap extends GameObject{
+public class GlobalMap extends GameObject{
+	private final int speed=10;
 	
-	public GLobalMap(int x,int y,int width,int height,GamePlay gamePlay) {
+	public GlobalMap(int x,int y,int width,int height,GamePlay gamePlay,Player player) {
 		try {
 			setImage(ImageIO.read(new File ("Media/Game objects/globalMap.png")));
 		} catch (IOException e) {
@@ -23,8 +24,42 @@ public class GLobalMap extends GameObject{
 		this.width=width;
 		this.height=height;
 		this.gamePlay=gamePlay;
+		this.player = player;
 	}
+	public void moveUp(){
+		if(this.getY()+speed>0){
+			this.setY(0);
+		}else{
+			this.setY(this.getY()+speed);
+			for(int i = 0 ; i < Game.getData().size();i++){
+				if(i!=0){
+					Game.getData().get(i).setY(Game.getData().get(i).getY()+speed);
+					
+				}
+			}
+			player.setY(player.getY()+speed);
+		}
+		
+		
+	}
+	public void moveDown(){	
+		if(this.getY()-speed<GamePlay.yMax-height){
+			
+			this.setY(GamePlay.yMax-height);
+			
+		}else{
+			this.setY(this.getY()-speed);
+			for(int i = 0 ; i < Game.getData().size();i++){
+				if(i!=0){
+					Game.getData().get(i).setY(Game.getData().get(i).getY()-speed);
+					
+				}
+			}
 
+			player.setY(player.getY()-speed);
+			
+		}
+	}
 	
 
 }
