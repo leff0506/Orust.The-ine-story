@@ -52,7 +52,7 @@ public class GamePlay extends JPanel {
 			
 	}
 
-	public void render(ArrayList<GameObject> data,Graphics g){
+	public void render(ArrayList<GameObject> data){
 		this.data=data;
 		this.repaint();
 

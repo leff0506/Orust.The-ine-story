@@ -1,7 +1,9 @@
 package leff0506;
 
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Toolkit;
+import java.awt.Window;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferStrategy;
 import java.util.ArrayList;
@@ -18,21 +20,19 @@ import gui.InputHendler;
 
 public class Game {
 	private static ArrayList<GameObject> dataObj = new ArrayList<GameObject>();
-	public static final int HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().height - 60-30;
-	public static final int WIDTH = Toolkit.getDefaultToolkit().getScreenSize().width-30 ;
-	public static final int X = 30;
-	public static final int Y = 60;
+	
+	public static final int WIDTH = GUIMenu.WIDTH;
+	public static final int GV_X=GUI.BRICK_SIZE;
+	public static final int GV_Y=GUI.BRICK_SIZE*3/2+GUIMenu.HEIGHT;
+	public static final int HEIGHT = GUI.HEIGHT-GV_Y-GUI.BRICK_SIZE;
 	private Player player;
 	private GUIMenu guiMenu;
 	public static GamePlay gameViewer;
-	public static final int MAP_HEIGHT = HEIGHT-160;
-	public static int MAP_X = X;
-	public static int MAP_WIDTH = WIDTH-30;
-	public static int MAP_Y = Y;
 	public static boolean running =true;
 	public static boolean renderingGlobalMap = true;
 	public GUI gui;
 	public Game() {
+		
 		initGameObjects();
 		player = new Player(0,0,20,20);
 		initGamePlay();
@@ -57,10 +57,11 @@ public class Game {
 						update();
 						delta=0;
 						updates++;
+						render();
+						frames++;
 					}
 					
-					render();
-					frames++;
+					
 					if(System.currentTimeMillis()-timer>1000){
 						gui.setTitle("Orust.The one story  frames : "+frames + "updates : "+updates);
 						timer+=1000;
@@ -86,25 +87,12 @@ public class Game {
 		
 	}
 	private void render(){
-		BufferStrategy bs = gui.getBufferStrategy();
-		if(bs==null){
-			gui.createBufferStrategy(3);
-			return;
-		}
-		Graphics g = bs.getDrawGraphics();
-		gameViewer.render(dataObj,g);
+		gameViewer.render(dataObj);
 	}
 	private void initGamePlay(){
-		gameViewer = new GamePlay(MAP_X, MAP_Y, MAP_WIDTH,MAP_HEIGHT, dataObj,player);
+		gameViewer = new GamePlay(GV_X,GV_Y,WIDTH,HEIGHT, dataObj,player);
 	}
 	private void initGameObjects() {
-		dataObj.add(new GLobalMap(0,0,MAP_WIDTH,MAP_HEIGHT,gameViewer));
-		Random rd = new Random();
-		for(int i = 0 ; i < 50;i++){
-			dataObj.add(new BlueRect(rd.nextInt(MAP_WIDTH),rd.nextInt(MAP_HEIGHT),20,20,gameViewer,player));
-		}
-		
-
 	}
 	public static void addGameObject(GameObject item){
 		dataObj.add(item);
